@@ -18,6 +18,8 @@
 		1B67212A281973610030B55E /* TVMazeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B672129281973610030B55E /* TVMazeUITestsLaunchTests.swift */; };
 		1B6721372819D7D80030B55E /* FlowControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6721362819D7D80030B55E /* FlowControllerType.swift */; };
 		1B6721392819D86B0030B55E /* TVMazeFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6721382819D86B0030B55E /* TVMazeFlowController.swift */; };
+		1B67213C2819E95E0030B55E /* NetworkingDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B67213B2819E95E0030B55E /* NetworkingDispatcher.swift */; };
+		1B67213F2819EDCA0030B55E /* TVMazeAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B67213E2819EDCA0030B55E /* TVMazeAPIError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		1B672129281973610030B55E /* TVMazeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVMazeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1B6721362819D7D80030B55E /* FlowControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowControllerType.swift; sourceTree = "<group>"; };
 		1B6721382819D86B0030B55E /* TVMazeFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVMazeFlowController.swift; sourceTree = "<group>"; };
+		1B67213B2819E95E0030B55E /* NetworkingDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingDispatcher.swift; sourceTree = "<group>"; };
+		1B67213E2819EDCA0030B55E /* TVMazeAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVMazeAPIError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,9 +109,9 @@
 			children = (
 				1B6721062819735F0030B55E /* AppDelegate.swift */,
 				1B6721082819735F0030B55E /* SceneDelegate.swift */,
-				1B67210A2819735F0030B55E /* ViewController.swift */,
-				1B6721362819D7D80030B55E /* FlowControllerType.swift */,
-				1B6721382819D86B0030B55E /* TVMazeFlowController.swift */,
+				1B6721412819EE9D0030B55E /* FlowController */,
+				1B67213D2819EDB80030B55E /* Networking */,
+				1B6721402819EDF50030B55E /* Scenes */,
 				1B67210C2819735F0030B55E /* Main.storyboard */,
 				1B67210F281973610030B55E /* Assets.xcassets */,
 				1B672111281973610030B55E /* LaunchScreen.storyboard */,
@@ -131,6 +135,32 @@
 				1B672129281973610030B55E /* TVMazeUITestsLaunchTests.swift */,
 			);
 			path = TVMazeUITests;
+			sourceTree = "<group>";
+		};
+		1B67213D2819EDB80030B55E /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				1B67213B2819E95E0030B55E /* NetworkingDispatcher.swift */,
+				1B67213E2819EDCA0030B55E /* TVMazeAPIError.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		1B6721402819EDF50030B55E /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				1B67210A2819735F0030B55E /* ViewController.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		1B6721412819EE9D0030B55E /* FlowController */ = {
+			isa = PBXGroup;
+			children = (
+				1B6721382819D86B0030B55E /* TVMazeFlowController.swift */,
+				1B6721362819D7D80030B55E /* FlowControllerType.swift */,
+			);
+			path = FlowController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +298,8 @@
 				1B6721372819D7D80030B55E /* FlowControllerType.swift in Sources */,
 				1B6721392819D86B0030B55E /* TVMazeFlowController.swift in Sources */,
 				1B6721072819735F0030B55E /* AppDelegate.swift in Sources */,
+				1B67213F2819EDCA0030B55E /* TVMazeAPIError.swift in Sources */,
+				1B67213C2819E95E0030B55E /* NetworkingDispatcher.swift in Sources */,
 				1B6721092819735F0030B55E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
