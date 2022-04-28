@@ -118,7 +118,7 @@ extension ViewController: UISearchBarDelegate {
 }
 
 extension ViewController: UISearchResultsUpdating {
-    
+
     func updateSearchResults(for searchController: UISearchController) {
         let searchText = searchController.searchBar.text ?? ""
         
