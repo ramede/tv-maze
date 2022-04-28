@@ -22,7 +22,7 @@ public class TVMazeFlowController: FlowControllerType {
     }
     
     func start() {
-        let viewController = ViewController()
+        let viewController = TVShowsTableViewController()
         push(viewController: viewController)
     }
     

@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TVShowsTableViewController.swift
 //  TVMaze
 //
 //  Created by Râmede on 27/04/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class TVShowsTableViewController: UITableViewController {
     
     // MARK: - Private Properties
     private var searchController = UISearchController(searchResultsController: nil)
@@ -44,9 +44,9 @@ class ViewController: UITableViewController {
 }
 
 // MARK: - Private Implementation
-private extension ViewController {
+private extension TVShowsTableViewController {
     
-    func setup() {
+    private func setup() {
         setupNavigationBar()
         setupSerachController()
         setupActivityIndicator()
@@ -54,7 +54,7 @@ private extension ViewController {
         setupConstraints()
     }
     
-    func setupSerachController() {
+    private func setupSerachController() {
         definesPresentationContext = true
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.hidesNavigationBarDuringPresentation = true
@@ -67,11 +67,11 @@ private extension ViewController {
         searchController.searchBar.barTintColor = .systemGray6
     }
     
-    func setupActivityIndicator() {
+    private func setupActivityIndicator() {
         activityIndicator.color = .systemBlue
     }
             
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.backgroundColor = .systemGray6
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -80,23 +80,23 @@ private extension ViewController {
         navigationItem.title = "TVMaze | Shows"
     }
             
-    func setupTableView() {
+    private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = searchController.searchBar
-        tableView.backgroundColor = .systemGray5
+        tableView.backgroundColor = .systemGray6
         tableView.keyboardDismissMode = .onDrag
-        tableView.separatorStyle = .none
+        tableView.separatorStyle = .singleLine
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = UIScreen.main.bounds.height * 65 / 100
         tableView.allowsMultipleSelectionDuringEditing = true
-        tableView.register(TableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(TVShowTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.backgroundView = activityIndicator
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             searchController.searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             searchController.searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
@@ -104,20 +104,24 @@ private extension ViewController {
     }
 }
 
-private extension ViewController {
+private extension TVShowsTableViewController {
+    
     @objc private func refresh() {
+    
     }
+    
 }
 
 // MARK: - SearchBar Delegate
-extension ViewController: UISearchBarDelegate {
+extension TVShowsTableViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    
     }
     
 }
 
-extension ViewController: UISearchResultsUpdating {
+extension TVShowsTableViewController: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
         let searchText = searchController.searchBar.text ?? ""
@@ -132,7 +136,7 @@ extension ViewController: UISearchResultsUpdating {
 }
 
 // MARK: - TableView Delegate
-extension ViewController {
+extension TVShowsTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tvShows.count == 0 {
@@ -145,7 +149,7 @@ extension ViewController {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "cell",
             for: indexPath
-        ) as? TableViewCell else { return UITableViewCell() }
+        ) as? TVShowTableViewCell else { return UITableViewCell() }
 
         cell.name = tvShows[indexPath.row]
 

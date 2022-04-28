@@ -1,5 +1,5 @@
 //
-//  TableViewCell.swift
+//  TVShowTableViewCell.swift
 //  TVMaze
 //
 //  Created by Râmede on 28/04/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
+class TVShowTableViewCell: UITableViewCell {
     
     // MARK: - Private Properties
     private var nameLabel = UILabel()
@@ -35,7 +35,7 @@ class TableViewCell: UITableViewCell {
 }
 
 // MARK: - Private Constants
-private extension TableViewCell {
+private extension TVShowTableViewCell {
     
     enum Constants {
         enum WrappedView {
@@ -79,9 +79,9 @@ private extension TableViewCell {
 }
 
 // MARK: - Private Implementation
-private extension TableViewCell {
+private extension TVShowTableViewCell {
     
-    func setup() {
+    private func setup() {
         setupThumbImage()
         setupWrappedView()
         setupNameLabel()
@@ -90,7 +90,7 @@ private extension TableViewCell {
         setupConstraints()
     }
 
-    func setupThumbImage() {
+    private func setupThumbImage() {
         thumbImage.translatesAutoresizingMaskIntoConstraints = false
         thumbImage.widthAnchor.constraint(equalToConstant: Constants.ThumbImage.width).isActive = true
         thumbImage.heightAnchor.constraint(equalToConstant: Constants.ThumbImage.height).isActive = true
@@ -98,12 +98,12 @@ private extension TableViewCell {
         thumbImage.contentMode = .scaleAspectFit
     }
 
-    func setupWrappedView() {
+    private func setupWrappedView() {
         wrappedView.translatesAutoresizingMaskIntoConstraints = false
         wrappedView.heightAnchor.constraint(equalToConstant: Constants.WrappedView.height).isActive = true
     }
     
-    func setupNameLabel() {
+    private func setupNameLabel() {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: Font.Name.regular)
         nameLabel.numberOfLines = 1
@@ -111,7 +111,7 @@ private extension TableViewCell {
         nameLabel.textColor = .black
     }
     
-    func setupRatingLabel() {
+    private func setupRatingLabel() {
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         ratingLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: Font.Rating.regular)
         ratingLabel.numberOfLines = 1
@@ -119,14 +119,14 @@ private extension TableViewCell {
         ratingLabel.text = "⭐ 6.5"
     }
         
-    func setupHierarchy() {
+    private func setupHierarchy() {
         contentView.addSubview(thumbImage)
         contentView.addSubview(wrappedView)
         wrappedView.addSubview(nameLabel)
         wrappedView.addSubview(ratingLabel)
     }
 
-    func setupConstraints() {
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             thumbImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.ThumbImage.top),
             thumbImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.ThumbImage.leading),
