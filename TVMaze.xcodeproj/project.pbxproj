@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B1C57A5281ACF510073A89E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57A4281ACF510073A89E /* TableViewCell.swift */; };
+		1B1C57A9281B009B0073A89E /* UINavigationController+StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57A8281B009B0073A89E /* UINavigationController+StatusBar.swift */; };
 		1B6721072819735F0030B55E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6721062819735F0030B55E /* AppDelegate.swift */; };
 		1B6721092819735F0030B55E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6721082819735F0030B55E /* SceneDelegate.swift */; };
 		1B67210B2819735F0030B55E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B67210A2819735F0030B55E /* ViewController.swift */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B1C57A4281ACF510073A89E /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		1B1C57A8281B009B0073A89E /* UINavigationController+StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+StatusBar.swift"; sourceTree = "<group>"; };
 		1B6721032819735F0030B55E /* TVMaze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TVMaze.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B6721062819735F0030B55E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B6721082819735F0030B55E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B1C57A6281AFBAF0073A89E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1B1C57A8281B009B0073A89E /* UINavigationController+StatusBar.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		1B6720FA2819735F0030B55E = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +121,7 @@
 			children = (
 				1B6721062819735F0030B55E /* AppDelegate.swift */,
 				1B6721082819735F0030B55E /* SceneDelegate.swift */,
+				1B1C57A6281AFBAF0073A89E /* Extensions */,
 				1B6721412819EE9D0030B55E /* FlowController */,
 				1B67213D2819EDB80030B55E /* Networking */,
 				1B6721402819EDF50030B55E /* Scenes */,
@@ -150,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				1B67210A2819735F0030B55E /* ViewController.swift */,
+				1B1C57A4281ACF510073A89E /* TableViewCell.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -295,8 +309,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B67210B2819735F0030B55E /* ViewController.swift in Sources */,
+				1B1C57A5281ACF510073A89E /* TableViewCell.swift in Sources */,
 				1B6721372819D7D80030B55E /* FlowControllerType.swift in Sources */,
 				1B6721392819D86B0030B55E /* TVMazeFlowController.swift in Sources */,
+				1B1C57A9281B009B0073A89E /* UINavigationController+StatusBar.swift in Sources */,
 				1B6721072819735F0030B55E /* AppDelegate.swift in Sources */,
 				1B67213F2819EDCA0030B55E /* TVMazeAPIError.swift in Sources */,
 				1B67213C2819E95E0030B55E /* NetworkingDispatcher.swift in Sources */,
