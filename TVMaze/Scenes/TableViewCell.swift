@@ -7,38 +7,21 @@
 
 import UIKit
 
-//protocol CountersTableViewCellDelegate: AnyObject {
-//    func didIncrementTapped(cell: CountersTableViewCell, countId: String?)
-//    func didDecrementTapped(cell: CountersTableViewCell, countId: String?)
-//}
-
 class TableViewCell: UITableViewCell {
     
     // MARK: - Private Properties
-    private var label = UILabel()
-    //private var countStepper = UIStepper()
-    //private var dividerView = UIView()
-    private var mainView = UIView()
-    //private var titleLabel = UILabel()
+    private var nameLabel = UILabel()
+    private var ratingLabel = UILabel()
+    private var wrappedView = UIView()
+    private var thumbImage = UIImageView()
     
     // MARK: - Public Properties
-    //var countId: String?
-    
-    //    var count: Int = 0 {
-    //        didSet {
-    //            countLabel.text = String(count)
-    //            countStepper.value = Double(count)
-    //        }
-    //    }
-    
-    var text: String = "" {
+    var name: String = "" {
         didSet {
-            label.text = text
+            nameLabel.text = name
         }
     }
     
-    //weak var delegate: CountersTableViewCellDelegate?
-
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -49,142 +32,117 @@ class TableViewCell: UITableViewCell {
         setup()
     }
     
-    @objc
-    private func dismissAction() {
-    }
-    
-    @objc
-    private func saveImageAction() {
-    }
-    
 }
 
 // MARK: - Private Constants
 private extension TableViewCell {
+    
     enum Constants {
-        enum MainView {
-            static let top: CGFloat = 16
+        enum WrappedView {
+            static let leading: CGFloat = 8
             static let trailing: CGFloat = -16
-            static let leading: CGFloat = 16
-            static let radius: CGFloat = 8
+            static let height: CGFloat = 40
         }
-
-        enum CounterLabel {
-            static let top: CGFloat = 16
-            static let trailing: CGFloat = -10
-            static let leading: CGFloat = 16
+        
+        enum NameLabel {
+            static let top: CGFloat = 0
+            static let leading: CGFloat = 0
+            static let trailing: CGFloat = 0
             static let width: CGFloat = 35
         }
-        
-        enum DescriptionLabel {
+
+        enum RatingLabel {
+            static let top: CGFloat = 8
+            static let leading: CGFloat = 0
+            static let trailing: CGFloat = 0
+        }
+
+        enum ThumbImage {
             static let top: CGFloat = 16
-            static let trailing: CGFloat = -14
-            static let bottom: CGFloat = -9
-        }
-        
-        enum CounterStepper {
-            static let tailing: CGFloat = -14
-            static let bottom: CGFloat = -14
-        }
-        
-        enum DividerView {
-            static let width: CGFloat = 2
+            static let leading: CGFloat = 16
+            static let bottom: CGFloat = -16
+            static let height: CGFloat = 100
+            static let width: CGFloat = 80
         }
     }
     
     enum Font {
-        enum Counter {
-            static let size : CGFloat = 22
-            static let bold = UIFont.systemFont(ofSize: 22, weight: .bold)
+        enum Name {
+            static let regular = UIFont.systemFont(ofSize: 14, weight: .regular)
         }
-        
-        enum Description {
-            static let regular = UIFont.systemFont(ofSize: 17, weight: .regular)
+
+        enum Rating {
+            static let regular = UIFont.systemFont(ofSize: 11, weight: .regular)
         }
     }
+    
 }
 
 // MARK: - Private Implementation
 private extension TableViewCell {
+    
     func setup() {
-        setupMainView()
-        setupCounterLabel()
-        setupDividerView()
-        setupDescriptionLabel()
-        setupCounterStepper()
+        setupThumbImage()
+        setupWrappedView()
+        setupNameLabel()
+        setupRatingLabel()
         setupHierarchy()
         setupConstraints()
     }
 
-    func setupMainView() {
-        mainView.translatesAutoresizingMaskIntoConstraints = false
-        mainView.layer.cornerRadius = Constants.MainView.radius
-        mainView.backgroundColor = .white
+    func setupThumbImage() {
+        thumbImage.translatesAutoresizingMaskIntoConstraints = false
+        thumbImage.widthAnchor.constraint(equalToConstant: Constants.ThumbImage.width).isActive = true
+        thumbImage.heightAnchor.constraint(equalToConstant: Constants.ThumbImage.height).isActive = true
+        thumbImage.image = UIImage(named: "ThumbImage")
+        thumbImage.contentMode = .scaleAspectFit
+    }
+
+    func setupWrappedView() {
+        wrappedView.translatesAutoresizingMaskIntoConstraints = false
+        wrappedView.heightAnchor.constraint(equalToConstant: Constants.WrappedView.height).isActive = true
     }
     
-    func setupCounterLabel() {
-        var font: UIFont = Font.Counter.bold
-        if let descriptor = Font.Counter.bold.fontDescriptor.withDesign(.rounded) {
-            font = UIFont(descriptor: descriptor, size: Font.Counter.size)
-        }
+    func setupNameLabel() {
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: Font.Name.regular)
+        nameLabel.numberOfLines = 1
+        nameLabel.lineBreakMode = .byTruncatingTail
+        nameLabel.textColor = .black
+    }
+    
+    func setupRatingLabel() {
+        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
+        ratingLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: Font.Rating.regular)
+        ratingLabel.numberOfLines = 1
+        ratingLabel.textColor = .black
+        ratingLabel.text = "⭐ 6.5"
+    }
         
-        label.widthAnchor.constraint(equalToConstant: Constants.CounterLabel.width).isActive = true
-        label.font = font
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.textColor = .black
-        label.text = "99" // TODO: Binding
-        label.textAlignment = .center
-    }
-    
-    func setupDividerView() {
-//        dividerView.translatesAutoresizingMaskIntoConstraints = false
-//        dividerView.backgroundColor = .systemGray5
-    }
-    
-    func setupDescriptionLabel() {
-//        titleLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: Font.Description.regular)
-//        titleLabel.numberOfLines = 0
-//        titleLabel.lineBreakMode = .byWordWrapping
-//        titleLabel.textColor = UIColor(named: "DescriptionText")
-//        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    func setupCounterStepper() {
-//        countStepper.translatesAutoresizingMaskIntoConstraints = false
-//        countStepper.addTarget(self, action: #selector(stepperValueChanged(_:)), for: .valueChanged)
-    }
-    
     func setupHierarchy() {
-        contentView.addSubview(mainView)
-        mainView.addSubview(label)
-        //mainView.addSubview(dividerView)
-        //mainView.addSubview(titleLabel)
-        //mainView.addSubview(countStepper)
+        contentView.addSubview(thumbImage)
+        contentView.addSubview(wrappedView)
+        wrappedView.addSubview(nameLabel)
+        wrappedView.addSubview(ratingLabel)
     }
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            mainView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.MainView.top),
-            mainView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.MainView.trailing),
-            mainView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            mainView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.MainView.leading),
+            thumbImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.ThumbImage.top),
+            thumbImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.ThumbImage.leading),
+            thumbImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: Constants.ThumbImage.bottom),
             
-            label.topAnchor.constraint(equalTo: mainView.topAnchor, constant: Constants.CounterLabel.top),
-            label.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: Constants.CounterLabel.trailing),
-            label.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: Constants.CounterLabel.leading),
+            wrappedView.leadingAnchor.constraint(equalTo: thumbImage.trailingAnchor, constant: Constants.WrappedView.leading),
+            wrappedView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.WrappedView.trailing),
+            wrappedView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
-            //            dividerView.widthAnchor.constraint(equalToConstant: Constants.DividerView.width),
-            //            dividerView.topAnchor.constraint(equalTo: mainView.topAnchor),
-            //            dividerView.trailingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: Constants.CounterLabel.trailing),
-            //            dividerView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor),
-            //
-            //            titleLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: Constants.DescriptionLabel.top),
-            //            titleLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: Constants.DescriptionLabel.trailing),
-            //            titleLabel.bottomAnchor.constraint(equalTo: countStepper.topAnchor, constant: Constants.DescriptionLabel.bottom),
-            //
-            //            countStepper.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: Constants.CounterStepper.tailing),
-            //            countStepper.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: Constants.CounterStepper.bottom)
+            nameLabel.topAnchor.constraint(equalTo: wrappedView.topAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: wrappedView.leadingAnchor, constant: Constants.NameLabel.leading),
+            nameLabel.trailingAnchor.constraint(equalTo: wrappedView.trailingAnchor, constant: Constants.NameLabel.trailing),
+            
+            ratingLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: Constants.RatingLabel.top),
+            ratingLabel.leadingAnchor.constraint(equalTo: wrappedView.leadingAnchor)
         ])
     }
+    
 }

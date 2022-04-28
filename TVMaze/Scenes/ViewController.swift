@@ -12,7 +12,7 @@ class ViewController: UITableViewController {
     // MARK: - Private Properties
     private var searchController = UISearchController(searchResultsController: nil)
     private let activityIndicator = UIActivityIndicatorView()
-    private var tvShows: [String] = ["Foo1", "Foo2", "Foo3", "Foo4", "Foo5", "Foo6", "Foo7", "Foo8", "Foo9", "Foo10", "Foo11", "Foo12", "Foo13", "Foo14", "Foo15"]
+    private var tvShows: [String] = ["Girls", "Breaking Bad", "Better Call Saul", "The Rookie", "Ozark", "S.W.A.T", "New Amsterdam", "Hudson", "One Star Reviews", "The Beat", "Goodwood Members Meeting Highlights", "Muspilli", "The World of Lee Evans", "Broken Bread", "Teorias da Conspiração"]
     
     init() {
         super.init(nibName: nil, bundle: .main)
@@ -147,7 +147,7 @@ extension ViewController {
             for: indexPath
         ) as? TableViewCell else { return UITableViewCell() }
 
-        cell.text = tvShows[indexPath.row]
+        cell.name = tvShows[indexPath.row]
 
         return cell
     }
