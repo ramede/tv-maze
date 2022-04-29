@@ -142,9 +142,6 @@ extension TVShowsTableViewController: UISearchResultsUpdating {
 extension TVShowsTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tvShows.count == 0 {
-            return 1
-        }
         return tvShows.count
     }
     
@@ -154,8 +151,9 @@ extension TVShowsTableViewController {
             for: indexPath
         ) as? TVShowTableViewCell else { return UITableViewCell() }
 
-        //cell.name = tvShows[indexPath.row]
-
+        cell.name = tvShows[indexPath.row].name
+        cell.rating = "⭐ \(String(tvShows[indexPath.row].rating.average ?? 0))"
+        
         return cell
     }
     
@@ -164,10 +162,12 @@ extension TVShowsTableViewController {
 // MARK: - Displaybles Implementation
 extension TVShowsTableViewController: TVShowsDisplayable {
     func displayLoading(_ isLoading: Bool) {
-        if isLoading {
-            activityIndicator.startAnimating()
-        } else {
-            activityIndicator.stopAnimating()
+        DispatchQueue.main.async {
+            if isLoading {
+                self.activityIndicator.startAnimating()
+            } else {
+                self.activityIndicator.stopAnimating()
+            }
         }
     }
 

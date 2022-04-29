@@ -22,6 +22,12 @@ class TVShowTableViewCell: UITableViewCell {
         }
     }
     
+    var rating: String = "0" {
+        didSet {
+            ratingLabel.text = rating
+        }
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -116,7 +122,6 @@ private extension TVShowTableViewCell {
         ratingLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: Font.Rating.regular)
         ratingLabel.numberOfLines = 1
         ratingLabel.textColor = .black
-        ratingLabel.text = "⭐ 6.5"
     }
         
     private func setupHierarchy() {

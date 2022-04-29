@@ -7,7 +7,12 @@
 
 import Foundation
 
+struct Rating: Codable {
+    let average: Double?
+}
+
 struct TVShow: Codable {
     let id: Int
     let name: String
+    let rating: Rating
 }

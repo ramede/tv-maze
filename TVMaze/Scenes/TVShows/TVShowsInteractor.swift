@@ -27,7 +27,7 @@ final class TVShowsInteractor {
 }
 
 // MARK: - Internal Implementation
-extension TVShowsInteractor {
+extension TVShowsInteractor: TVShowsInteractoractable {
     
     func loadTVShows() {
         presenter.presentLoading(true)
