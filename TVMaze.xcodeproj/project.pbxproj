@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B1C57A5281ACF510073A89E /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57A4281ACF510073A89E /* TableViewCell.swift */; };
+		1B1C57A5281ACF510073A89E /* TVShowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57A4281ACF510073A89E /* TVShowTableViewCell.swift */; };
 		1B1C57A9281B009B0073A89E /* UINavigationController+StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57A8281B009B0073A89E /* UINavigationController+StatusBar.swift */; };
+		1B1C57AE281B2C650073A89E /* TVShowsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57AD281B2C650073A89E /* TVShowsInteractor.swift */; };
+		1B1C57B0281B2EBA0073A89E /* TVShowsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57AF281B2EBA0073A89E /* TVShowsService.swift */; };
+		1B1C57B2281B32E80073A89E /* TVMazeAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57B1281B32E80073A89E /* TVMazeAPIEndpoint.swift */; };
+		1B1C57B9281B4C7F0073A89E /* TVShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57B8281B4C7F0073A89E /* TVShow.swift */; };
+		1B1C57BB281B6EF00073A89E /* TVShowsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57BA281B6EF00073A89E /* TVShowsPresenter.swift */; };
 		1B6721072819735F0030B55E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6721062819735F0030B55E /* AppDelegate.swift */; };
 		1B6721092819735F0030B55E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6721082819735F0030B55E /* SceneDelegate.swift */; };
-		1B67210B2819735F0030B55E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B67210A2819735F0030B55E /* ViewController.swift */; };
+		1B67210B2819735F0030B55E /* TVShowsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B67210A2819735F0030B55E /* TVShowsTableViewController.swift */; };
 		1B672110281973610030B55E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B67210F281973610030B55E /* Assets.xcassets */; };
 		1B672113281973610030B55E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B672111281973610030B55E /* LaunchScreen.storyboard */; };
 		1B67211E281973610030B55E /* TVMazeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B67211D281973610030B55E /* TVMazeTests.swift */; };
@@ -41,12 +46,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1B1C57A4281ACF510073A89E /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		1B1C57A4281ACF510073A89E /* TVShowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowTableViewCell.swift; sourceTree = "<group>"; };
 		1B1C57A8281B009B0073A89E /* UINavigationController+StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+StatusBar.swift"; sourceTree = "<group>"; };
+		1B1C57AD281B2C650073A89E /* TVShowsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsInteractor.swift; sourceTree = "<group>"; };
+		1B1C57AF281B2EBA0073A89E /* TVShowsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsService.swift; sourceTree = "<group>"; };
+		1B1C57B1281B32E80073A89E /* TVMazeAPIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVMazeAPIEndpoint.swift; sourceTree = "<group>"; };
+		1B1C57B8281B4C7F0073A89E /* TVShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShow.swift; sourceTree = "<group>"; };
+		1B1C57BA281B6EF00073A89E /* TVShowsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsPresenter.swift; sourceTree = "<group>"; };
 		1B6721032819735F0030B55E /* TVMaze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TVMaze.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B6721062819735F0030B55E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B6721082819735F0030B55E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1B67210A2819735F0030B55E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1B67210A2819735F0030B55E /* TVShowsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsTableViewController.swift; sourceTree = "<group>"; };
 		1B67210F281973610030B55E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B672112281973610030B55E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B672114281973610030B55E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,6 +111,67 @@
 				1B672111281973610030B55E /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		1B1C57AB281B22180073A89E /* TVShows */ = {
+			isa = PBXGroup;
+			children = (
+				1B1C57B7281B4C6B0073A89E /* Models */,
+				1B1C57AC281B22220073A89E /* Cell */,
+				1B1C57B6281B37E70073A89E /* ViewController */,
+				1B1C57B5281B37AB0073A89E /* Interactor */,
+				1B1C57B4281B379B0073A89E /* Service */,
+				1B1C57BA281B6EF00073A89E /* TVShowsPresenter.swift */,
+			);
+			path = TVShows;
+			sourceTree = "<group>";
+		};
+		1B1C57AC281B22220073A89E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1B1C57A4281ACF510073A89E /* TVShowTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		1B1C57B3281B37540073A89E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				1B1C57B1281B32E80073A89E /* TVMazeAPIEndpoint.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		1B1C57B4281B379B0073A89E /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				1B1C57AF281B2EBA0073A89E /* TVShowsService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		1B1C57B5281B37AB0073A89E /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				1B1C57AD281B2C650073A89E /* TVShowsInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		1B1C57B6281B37E70073A89E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1B67210A2819735F0030B55E /* TVShowsTableViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		1B1C57B7281B4C6B0073A89E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1B1C57B8281B4C7F0073A89E /* TVShow.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		1B6720FA2819735F0030B55E = {
@@ -167,8 +238,8 @@
 		1B6721402819EDF50030B55E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				1B67210A2819735F0030B55E /* ViewController.swift */,
-				1B1C57A4281ACF510073A89E /* TableViewCell.swift */,
+				1B1C57B3281B37540073A89E /* API */,
+				1B1C57AB281B22180073A89E /* TVShows */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -312,13 +383,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B67210B2819735F0030B55E /* ViewController.swift in Sources */,
-				1B1C57A5281ACF510073A89E /* TableViewCell.swift in Sources */,
+				1B1C57B9281B4C7F0073A89E /* TVShow.swift in Sources */,
+				1B1C57BB281B6EF00073A89E /* TVShowsPresenter.swift in Sources */,
+				1B67210B2819735F0030B55E /* TVShowsTableViewController.swift in Sources */,
+				1B1C57A5281ACF510073A89E /* TVShowTableViewCell.swift in Sources */,
 				1B6721372819D7D80030B55E /* FlowControllerType.swift in Sources */,
 				1B6721392819D86B0030B55E /* TVMazeFlowController.swift in Sources */,
+				1B1C57B2281B32E80073A89E /* TVMazeAPIEndpoint.swift in Sources */,
 				1B1C57A9281B009B0073A89E /* UINavigationController+StatusBar.swift in Sources */,
 				1B6721072819735F0030B55E /* AppDelegate.swift in Sources */,
 				1B67213F2819EDCA0030B55E /* TVMazeAPIError.swift in Sources */,
+				1B1C57B0281B2EBA0073A89E /* TVShowsService.swift in Sources */,
+				1B1C57AE281B2C650073A89E /* TVShowsInteractor.swift in Sources */,
 				1B67213C2819E95E0030B55E /* NetworkingDispatcher.swift in Sources */,
 				1B6721092819735F0030B55E /* SceneDelegate.swift in Sources */,
 			);

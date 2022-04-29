@@ -7,29 +7,32 @@
 
 import UIKit
 
+protocol TVShowsDisplayable: AnyObject {
+    func displayLoading(_ isLoading: Bool)
+    func displayTVShows(_ tvShows: [TVShow])
+}
+
 class TVShowsTableViewController: UITableViewController {
     
     // MARK: - Private Properties
+    private let interactor: TVShowsInteractoractable
     private var searchController = UISearchController(searchResultsController: nil)
     private let activityIndicator = UIActivityIndicatorView()
-    private var tvShows: [String] = ["Girls", "Breaking Bad", "Better Call Saul", "The Rookie", "Ozark", "S.W.A.T", "New Amsterdam", "Hudson", "One Star Reviews", "The Beat", "Goodwood Members Meeting Highlights", "Muspilli", "The World of Lee Evans", "Broken Bread", "Teorias da Conspiração"]
+    private var tvShows: [TVShow] = []
     
-    init() {
+    init(interactor: TVShowsInteractoractable) {
+        self.interactor = interactor
         super.init(nibName: nil, bundle: .main)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.tableView.refreshControl?.endRefreshing()
-        }
+        interactor.loadTVShows()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -151,9 +154,28 @@ extension TVShowsTableViewController {
             for: indexPath
         ) as? TVShowTableViewCell else { return UITableViewCell() }
 
-        cell.name = tvShows[indexPath.row]
+        //cell.name = tvShows[indexPath.row]
 
         return cell
     }
     
+}
+
+// MARK: - Displaybles Implementation
+extension TVShowsTableViewController: TVShowsDisplayable {
+    func displayLoading(_ isLoading: Bool) {
+        if isLoading {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
+    }
+
+    func displayTVShows(_ tvShows: [TVShow]) {
+        DispatchQueue.main.async {
+            self.tvShows = tvShows
+            self.tableView.reloadData()
+            self.tableView.refreshControl?.endRefreshing()
+        }
+    }
 }
