@@ -10,7 +10,7 @@ import UIKit
 protocol TVShowsDisplayable: AnyObject {
     func displayLoading(_ isLoading: Bool)
     func displayTVShows(_ tvShows: [TVShow])
-    func displayDownloadedImage(_ image: Data?, on idx: Int)
+    func displayDownloadedImage(_ image: Data?, on idx: IndexPath)
 }
 
 class TVShowsTableViewController: UITableViewController {
@@ -170,7 +170,7 @@ extension TVShowsTableViewController {
         if let imageUrl = tvShows[indexPath.row].image.medium {
             if tvShows[indexPath.row].didFetchImage == nil ||
                tvShows[indexPath.row].didFetchImage == false {
-                interactor.downloadImage(from: imageUrl, with: indexPath.row)
+                interactor.downloadImage(from: imageUrl, with: indexPath)
             }
         }
         
@@ -200,12 +200,14 @@ extension TVShowsTableViewController: TVShowsDisplayable {
         }
     }
     
-    func displayDownloadedImage(_ image: Data?, on idx: Int) {
-        if idx >= tvShows.startIndex && idx < tvShows.endIndex {
-            tvShows[idx].imageData = image
-            tvShows[idx].didFetchImage = true
+    func displayDownloadedImage(_ image: Data?, on idx: IndexPath) {
+        if idx.row >= tvShows.startIndex && idx.row < tvShows.endIndex {
+            tvShows[idx.row].imageData = image
+            tvShows[idx.row].didFetchImage = true
             DispatchQueue.main.async() {
-                self.tableView.reloadData()
+                UIView.performWithoutAnimation {
+                    self.tableView.reloadRows(at: [idx], with: .none)                    
+                }
             }
         }
     }
