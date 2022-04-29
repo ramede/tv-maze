@@ -17,9 +17,9 @@ struct Rating: Codable {
 
 struct TVShow: Codable {
     let id: Int
-    let name: String
-    let rating: Rating
-    let image: Image
+    let name: String?
+    let rating: Rating?
+    let image: Image?
     var didFetchImage: Bool?
     var imageData: Data?
 }

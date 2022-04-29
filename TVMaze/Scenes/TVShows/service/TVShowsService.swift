@@ -8,6 +8,7 @@
 import Foundation
 
 protocol TVShowsServiceProtocol {
+    func searchTVShows(query: String, completion: @escaping (Result<[TVShowSearch], Error>) -> Void)
     func fetchTVShows(to page: Int, completion: @escaping (Result<[TVShow], TVMazeAPIError>) -> Void)
     func fetchImage(url: String, completion: @escaping (Result<Data?, Error>) -> Void)
 }
@@ -23,8 +24,26 @@ final class TVShowsService {
 // MARK: - Internal Implematations
 extension TVShowsService: TVShowsServiceProtocol {
     
-    func fetchTVShows(to page: Int, completion: @escaping (Result<[TVShow], TVMazeAPIError>) -> Void) {
+    func searchTVShows(query: String, completion: @escaping (Result<[TVShowSearch], Error>) -> Void) {
+        let endpoint = TVMazeAPIEndpoint.searchShows(params: ["q": query])
+        var components = URLComponents(string: endpoint.baseUrl + endpoint.path)
+        components?.queryItems = endpoint.queryParameters
         
+        guard let url = components?.url else { return }
+                
+        DispatchQueue.global().async {
+            self.networkingDispatcher.execute(sessionURL: url) { (result: Result<[TVShowSearch], TVMazeAPIError>) in
+                switch result {
+                case .success(let response):
+                    completion(.success(response))
+                case .failure(let error):
+                    completion(.failure(TVMazeAPIError.generic(message: error.localizedDescription)))
+                }
+            }
+        }
+    }
+    
+    func fetchTVShows(to page: Int, completion: @escaping (Result<[TVShow], TVMazeAPIError>) -> Void) {
         let endpoint = TVMazeAPIEndpoint.getShows(params: ["page": String(page)])
         var components = URLComponents(string: endpoint.baseUrl + endpoint.path)
         components?.queryItems = endpoint.queryParameters

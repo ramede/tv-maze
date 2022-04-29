@@ -50,7 +50,6 @@ class TVShowsTableViewController: UITableViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffsetY = scrollView.contentOffset.y
         if contentOffsetY >= (scrollView.contentSize.height - scrollView.bounds.height) - 20 {
-            print("🤡🤡🤡🤡 ....  \(page)")
             page += 1
             interactor.loadTVShows(to: page)
         }
@@ -74,7 +73,6 @@ private extension TVShowsTableViewController {
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.automaticallyShowsScopeBar = false
-        searchController.searchResultsUpdater = self
         
         searchController.searchBar.backgroundColor = .systemGray6
         searchController.searchBar.backgroundImage = UIImage()
@@ -130,22 +128,15 @@ private extension TVShowsTableViewController {
 // MARK: - SearchBar Delegate
 extension TVShowsTableViewController: UISearchBarDelegate {
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let searchText = searchController.searchBar.text ?? ""
+        tvShows = []
+        interactor.searchTVShows(query: searchText)
+        searchController.isActive = false
+    }
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     
-    }
-    
-}
-
-extension TVShowsTableViewController: UISearchResultsUpdating {
-
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchText = searchController.searchBar.text ?? ""
-        
-        if searchText.count == 0 {
-            tableView.reloadData()
-            return
-        }
-        tableView.reloadData()
     }
     
 }
@@ -164,10 +155,10 @@ extension TVShowsTableViewController {
         ) as? TVShowTableViewCell else { return UITableViewCell() }
 
         cell.imageData = tvShows[indexPath.row].imageData
-        cell.name = tvShows[indexPath.row].name
-        cell.rating = "⭐ \(String(tvShows[indexPath.row].rating.average ?? 0))"
+        cell.name = tvShows[indexPath.row].name ?? ""
+        cell.rating = "⭐ \(String(tvShows[indexPath.row].rating?.average ?? 0))"
         
-        if let imageUrl = tvShows[indexPath.row].image.medium {
+        if let imageUrl = tvShows[indexPath.row].image?.medium {
             if tvShows[indexPath.row].didFetchImage == nil ||
                tvShows[indexPath.row].didFetchImage == false {
                 interactor.downloadImage(from: imageUrl, with: indexPath)
@@ -206,7 +197,7 @@ extension TVShowsTableViewController: TVShowsDisplayable {
             tvShows[idx.row].didFetchImage = true
             DispatchQueue.main.async() {
                 UIView.performWithoutAnimation {
-                    self.tableView.reloadRows(at: [idx], with: .none)                    
+                    self.tableView.reloadRows(at: [idx], with: .none)
                 }
             }
         }

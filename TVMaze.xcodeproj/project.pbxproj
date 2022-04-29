@@ -15,6 +15,7 @@
 		1B1C57B9281B4C7F0073A89E /* TVShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57B8281B4C7F0073A89E /* TVShow.swift */; };
 		1B1C57BB281B6EF00073A89E /* TVShowsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57BA281B6EF00073A89E /* TVShowsPresenter.swift */; };
 		1B1C57BF281B74A10073A89E /* TVShowsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57BE281B74A10073A89E /* TVShowsFactory.swift */; };
+		1B1C57C1281C29FA0073A89E /* TVShowSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57C0281C29FA0073A89E /* TVShowSearch.swift */; };
 		1B6721072819735F0030B55E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6721062819735F0030B55E /* AppDelegate.swift */; };
 		1B6721092819735F0030B55E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6721082819735F0030B55E /* SceneDelegate.swift */; };
 		1B67210B2819735F0030B55E /* TVShowsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B67210A2819735F0030B55E /* TVShowsTableViewController.swift */; };
@@ -55,6 +56,7 @@
 		1B1C57B8281B4C7F0073A89E /* TVShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShow.swift; sourceTree = "<group>"; };
 		1B1C57BA281B6EF00073A89E /* TVShowsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsPresenter.swift; sourceTree = "<group>"; };
 		1B1C57BE281B74A10073A89E /* TVShowsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowsFactory.swift; sourceTree = "<group>"; };
+		1B1C57C0281C29FA0073A89E /* TVShowSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowSearch.swift; sourceTree = "<group>"; };
 		1B6721032819735F0030B55E /* TVMaze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TVMaze.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B6721062819735F0030B55E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B6721082819735F0030B55E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,18 +139,19 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
-		1B1C57B3281B37540073A89E /* API */ = {
+		1B1C57B3281B37540073A89E /* TVMazeAPI */ = {
 			isa = PBXGroup;
 			children = (
 				1B1C57B1281B32E80073A89E /* TVMazeAPIEndpoint.swift */,
 			);
-			path = API;
+			path = TVMazeAPI;
 			sourceTree = "<group>";
 		};
 		1B1C57B7281B4C6B0073A89E /* models */ = {
 			isa = PBXGroup;
 			children = (
 				1B1C57B8281B4C7F0073A89E /* TVShow.swift */,
+				1B1C57C0281C29FA0073A89E /* TVShowSearch.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				1B67213D2819EDB80030B55E /* Networking */,
 				1B1C57AA281B04B60073A89E /* Resources */,
 				1B6721402819EDF50030B55E /* Scenes */,
+				1B1C57B3281B37540073A89E /* TVMazeAPI */,
 			);
 			path = TVMaze;
 			sourceTree = "<group>";
@@ -233,7 +237,6 @@
 		1B6721402819EDF50030B55E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				1B1C57B3281B37540073A89E /* API */,
 				1B1C57AB281B22180073A89E /* TVShows */,
 			);
 			path = Scenes;
@@ -392,6 +395,7 @@
 				1B1C57AE281B2C650073A89E /* TVShowsInteractor.swift in Sources */,
 				1B1C57BF281B74A10073A89E /* TVShowsFactory.swift in Sources */,
 				1B67213C2819E95E0030B55E /* NetworkingDispatcher.swift in Sources */,
+				1B1C57C1281C29FA0073A89E /* TVShowSearch.swift in Sources */,
 				1B6721092819735F0030B55E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

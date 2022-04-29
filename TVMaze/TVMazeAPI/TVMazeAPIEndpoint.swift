@@ -24,6 +24,7 @@ protocol Endpoint {
 
 enum TVMazeAPIEndpoint: Endpoint {
     case getShows(params: [String: String])
+    case searchShows(params: [String: String])
 
     var baseUrl: String {
         get {
@@ -36,6 +37,8 @@ enum TVMazeAPIEndpoint: Endpoint {
             switch self {
             case .getShows:
                 return "/shows"
+            case .searchShows:
+                return "/search/shows"
             }
         }
     }
@@ -43,7 +46,8 @@ enum TVMazeAPIEndpoint: Endpoint {
     var httpMethod: HTTPMethod {
         get {
             switch self {
-            case .getShows:
+            case .getShows,
+                 .searchShows:
                 return .get
             }
         }
@@ -52,7 +56,8 @@ enum TVMazeAPIEndpoint: Endpoint {
     var queryParameters: [URLQueryItem]? {
         get {
             switch self {
-            case .getShows(let params):
+            case .getShows(let params),
+                 .searchShows(let params):
                 let urlComponents = params.map {
                     URLQueryItem(name: $0.0, value: $0.1)
                 }
