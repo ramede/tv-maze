@@ -116,22 +116,22 @@
 		1B1C57AB281B22180073A89E /* TVShows */ = {
 			isa = PBXGroup;
 			children = (
-				1B1C57B7281B4C6B0073A89E /* Models */,
-				1B1C57AC281B22220073A89E /* Cell */,
-				1B1C57B6281B37E70073A89E /* ViewController */,
-				1B1C57B5281B37AB0073A89E /* Interactor */,
-				1B1C57B4281B379B0073A89E /* Service */,
+				1B1C57BC281B73C70073A89E /* data */,
+				1B1C57B7281B4C6B0073A89E /* models */,
+				1B1C57AC281B22220073A89E /* cell */,
+				1B1C57AD281B2C650073A89E /* TVShowsInteractor.swift */,
 				1B1C57BA281B6EF00073A89E /* TVShowsPresenter.swift */,
+				1B67210A2819735F0030B55E /* TVShowsTableViewController.swift */,
 			);
 			path = TVShows;
 			sourceTree = "<group>";
 		};
-		1B1C57AC281B22220073A89E /* Cell */ = {
+		1B1C57AC281B22220073A89E /* cell */ = {
 			isa = PBXGroup;
 			children = (
 				1B1C57A4281ACF510073A89E /* TVShowTableViewCell.swift */,
 			);
-			path = Cell;
+			path = cell;
 			sourceTree = "<group>";
 		};
 		1B1C57B3281B37540073A89E /* API */ = {
@@ -142,36 +142,20 @@
 			path = API;
 			sourceTree = "<group>";
 		};
-		1B1C57B4281B379B0073A89E /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				1B1C57AF281B2EBA0073A89E /* TVShowsService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		1B1C57B5281B37AB0073A89E /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-				1B1C57AD281B2C650073A89E /* TVShowsInteractor.swift */,
-			);
-			path = Interactor;
-			sourceTree = "<group>";
-		};
-		1B1C57B6281B37E70073A89E /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				1B67210A2819735F0030B55E /* TVShowsTableViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		1B1C57B7281B4C6B0073A89E /* Models */ = {
+		1B1C57B7281B4C6B0073A89E /* models */ = {
 			isa = PBXGroup;
 			children = (
 				1B1C57B8281B4C7F0073A89E /* TVShow.swift */,
 			);
-			path = Models;
+			path = models;
+			sourceTree = "<group>";
+		};
+		1B1C57BC281B73C70073A89E /* data */ = {
+			isa = PBXGroup;
+			children = (
+				1B1C57AF281B2EBA0073A89E /* TVShowsService.swift */,
+			);
+			path = data;
 			sourceTree = "<group>";
 		};
 		1B6720FA2819735F0030B55E = {
