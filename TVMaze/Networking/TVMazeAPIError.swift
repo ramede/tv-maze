@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum TVMazeError: Error {
+enum TVMazeAPIError: Error {
     case networking(code: Int, message: String)
     case fetch
     case parser
