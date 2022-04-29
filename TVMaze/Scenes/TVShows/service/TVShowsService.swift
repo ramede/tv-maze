@@ -8,7 +8,7 @@
 import Foundation
 
 protocol TVShowsServiceProtocol {
-    func fetchTVShows(completion: @escaping (Result<[TVShow], TVMazeAPIError>) -> Void)
+    func fetchTVShows(to page: Int, completion: @escaping (Result<[TVShow], TVMazeAPIError>) -> Void)
     func fetchImage(url: String, completion: @escaping (Result<Data?, Error>) -> Void)
 }
 
@@ -23,10 +23,14 @@ final class TVShowsService {
 // MARK: - Internal Implematations
 extension TVShowsService: TVShowsServiceProtocol {
     
-    func fetchTVShows(completion: @escaping (Result<[TVShow], TVMazeAPIError>) -> Void) {
-        let endpoint = TVMazeAPIEndpoint.getShows.baseUrl + TVMazeAPIEndpoint.getShows.path
-        guard let url = URL(string: endpoint) else { return }
+    func fetchTVShows(to page: Int, completion: @escaping (Result<[TVShow], TVMazeAPIError>) -> Void) {
         
+        let endpoint = TVMazeAPIEndpoint.getShows(params: ["page": String(page)])
+        var components = URLComponents(string: endpoint.baseUrl + endpoint.path)
+        components?.queryItems = endpoint.queryParameters
+        
+        guard let url = components?.url else { return }
+                
         DispatchQueue.global().async {
             self.networkingDispatcher.execute(sessionURL: url) { (result: Result<[TVShow], TVMazeAPIError>) in
                 switch result {

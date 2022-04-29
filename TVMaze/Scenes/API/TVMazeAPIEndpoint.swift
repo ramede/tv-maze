@@ -23,7 +23,7 @@ protocol Endpoint {
 }
 
 enum TVMazeAPIEndpoint: Endpoint {
-    case getShows
+    case getShows(params: [String: String])
 
     var baseUrl: String {
         get {
@@ -51,7 +51,13 @@ enum TVMazeAPIEndpoint: Endpoint {
     
     var queryParameters: [URLQueryItem]? {
         get {
-            return nil
+            switch self {
+            case .getShows(let params):
+                let urlComponents = params.map {
+                    URLQueryItem(name: $0.0, value: $0.1)
+                }
+                return urlComponents
+            }
         }
     }
     

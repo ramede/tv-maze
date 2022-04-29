@@ -119,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				1B1C57BD281B74870073A89E /* depencyInjection */,
-				1B1C57BC281B73C70073A89E /* data */,
+				1B1C57BC281B73C70073A89E /* service */,
 				1B1C57B7281B4C6B0073A89E /* models */,
 				1B1C57AC281B22220073A89E /* cell */,
 				1B1C57AD281B2C650073A89E /* TVShowsInteractor.swift */,
@@ -153,12 +153,12 @@
 			path = models;
 			sourceTree = "<group>";
 		};
-		1B1C57BC281B73C70073A89E /* data */ = {
+		1B1C57BC281B73C70073A89E /* service */ = {
 			isa = PBXGroup;
 			children = (
 				1B1C57AF281B2EBA0073A89E /* TVShowsService.swift */,
 			);
-			path = data;
+			path = service;
 			sourceTree = "<group>";
 		};
 		1B1C57BD281B74870073A89E /* depencyInjection */ = {
@@ -196,6 +196,7 @@
 				1B6721062819735F0030B55E /* AppDelegate.swift */,
 				1B6721082819735F0030B55E /* SceneDelegate.swift */,
 				1B1C57A6281AFBAF0073A89E /* Extensions */,
+				1B6721412819EE9D0030B55E /* FlowController */,
 				1B67213D2819EDB80030B55E /* Networking */,
 				1B1C57AA281B04B60073A89E /* Resources */,
 				1B6721402819EDF50030B55E /* Scenes */,
@@ -232,7 +233,6 @@
 		1B6721402819EDF50030B55E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				1B6721412819EE9D0030B55E /* FlowController */,
 				1B1C57B3281B37540073A89E /* API */,
 				1B1C57AB281B22180073A89E /* TVShows */,
 			);

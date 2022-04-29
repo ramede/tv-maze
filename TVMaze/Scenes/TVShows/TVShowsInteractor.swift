@@ -9,7 +9,7 @@ import Foundation
 
 protocol TVShowsInteractoractable: AnyObject {
     func downloadImage(from url: String, with idx: Int)
-    func loadTVShows()
+    func loadTVShows(to page: Int)
 }
 
 final class TVShowsInteractor {
@@ -29,6 +29,7 @@ final class TVShowsInteractor {
 
 // MARK: - Internal Implementation
 extension TVShowsInteractor: TVShowsInteractoractable {
+    
     func downloadImage(from url: String, with idx: Int) {
         service.fetchImage(url: url) { (result: Result<Data?, Error>) in
             switch result {
@@ -42,19 +43,18 @@ extension TVShowsInteractor: TVShowsInteractoractable {
     }
     
     
-    func loadTVShows() {
+    func loadTVShows(to page: Int) {
         presenter.presentLoading(true)
-        service.fetchTVShows { [weak self] result in
+        service.fetchTVShows(to: page) { [weak self] result in
             guard let self = self else { return }
             self.presenter.presentLoading(false)
             switch result {
             case .success(let tvShows):
-                print("😻😻😻 \(tvShows)")
                 self.presenter.presentTVShows(tvShows)
             case .failure(let error):
                 print("👹👹👹 \(error)")
             }
         }
     }
-    
+        
 }

@@ -14,12 +14,13 @@ protocol TVShowsDisplayable: AnyObject {
 }
 
 class TVShowsTableViewController: UITableViewController {
-    
+        
     // MARK: - Private Properties
     private let interactor: TVShowsInteractoractable
     private var searchController = UISearchController(searchResultsController: nil)
     private let activityIndicator = UIActivityIndicatorView()
     private var tvShows: [TVShow] = []
+    private var page: Int = 0
     
     init(interactor: TVShowsInteractoractable) {
         self.interactor = interactor
@@ -33,7 +34,7 @@ class TVShowsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        interactor.loadTVShows()
+        interactor.loadTVShows(to: page)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -45,6 +46,16 @@ class TVShowsTableViewController: UITableViewController {
         super.viewDidDisappear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
+
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffsetY = scrollView.contentOffset.y
+        if contentOffsetY >= (scrollView.contentSize.height - scrollView.bounds.height) - 20 {
+            print("🤡🤡🤡🤡 ....  \(page)")
+            page += 1
+            interactor.loadTVShows(to: page)
+        }
+    }
+
 }
 
 // MARK: - Private Implementation
@@ -170,6 +181,7 @@ extension TVShowsTableViewController {
 
 // MARK: - Displaybles Implementation
 extension TVShowsTableViewController: TVShowsDisplayable {
+    
     func displayLoading(_ isLoading: Bool) {
         DispatchQueue.main.async {
             if isLoading {
@@ -182,7 +194,7 @@ extension TVShowsTableViewController: TVShowsDisplayable {
 
     func displayTVShows(_ tvShows: [TVShow]) {
         DispatchQueue.main.async {
-            self.tvShows = tvShows
+            self.tvShows.append(contentsOf: tvShows)
             self.tableView.reloadData()
             self.tableView.refreshControl?.endRefreshing()
         }
