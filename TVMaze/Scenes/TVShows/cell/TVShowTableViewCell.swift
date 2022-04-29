@@ -98,7 +98,7 @@ private extension TVShowTableViewCell {
 // MARK: - Private Implementation
 private extension TVShowTableViewCell {
     
-    private func setup() {
+    func setup() {
         setupThumbImage()
         setupWrappedView()
         setupNameLabel()
@@ -107,19 +107,19 @@ private extension TVShowTableViewCell {
         setupConstraints()
     }
 
-    private func setupThumbImage() {
+    func setupThumbImage() {
         thumbImage.translatesAutoresizingMaskIntoConstraints = false
         thumbImage.widthAnchor.constraint(equalToConstant: Constants.ThumbImage.width).isActive = true
         thumbImage.heightAnchor.constraint(equalToConstant: Constants.ThumbImage.height).isActive = true
         thumbImage.contentMode = .scaleAspectFit
     }
 
-    private func setupWrappedView() {
+    func setupWrappedView() {
         wrappedView.translatesAutoresizingMaskIntoConstraints = false
         wrappedView.heightAnchor.constraint(equalToConstant: Constants.WrappedView.height).isActive = true
     }
     
-    private func setupNameLabel() {
+    func setupNameLabel() {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: Font.Name.regular)
         nameLabel.numberOfLines = 1
@@ -127,21 +127,21 @@ private extension TVShowTableViewCell {
         nameLabel.textColor = .black
     }
     
-    private func setupRatingLabel() {
+    func setupRatingLabel() {
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         ratingLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: Font.Rating.regular)
         ratingLabel.numberOfLines = 1
         ratingLabel.textColor = .black
     }
         
-    private func setupHierarchy() {
+    func setupHierarchy() {
         contentView.addSubview(thumbImage)
         contentView.addSubview(wrappedView)
         wrappedView.addSubview(nameLabel)
         wrappedView.addSubview(ratingLabel)
     }
 
-    private func setupConstraints() {
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             thumbImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.ThumbImage.top),
             thumbImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.ThumbImage.leading),

@@ -60,7 +60,7 @@ class TVShowsTableViewController: UITableViewController {
 // MARK: - Private Implementation
 private extension TVShowsTableViewController {
     
-    private func setup() {
+    func setup() {
         setupNavigationBar()
         setupSerachController()
         setupActivityIndicator()
@@ -68,7 +68,7 @@ private extension TVShowsTableViewController {
         setupConstraints()
     }
     
-    private func setupSerachController() {
+    func setupSerachController() {
         definesPresentationContext = true
         searchController.obscuresBackgroundDuringPresentation = true
         searchController.hidesNavigationBarDuringPresentation = true
@@ -80,11 +80,11 @@ private extension TVShowsTableViewController {
         searchController.searchBar.barTintColor = .systemGray6
     }
     
-    private func setupActivityIndicator() {
+    func setupActivityIndicator() {
         activityIndicator.color = .systemBlue
     }
             
-    private func setupNavigationBar() {
+    func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.backgroundColor = .systemGray6
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -93,7 +93,7 @@ private extension TVShowsTableViewController {
         navigationItem.title = "TVMaze | Shows"
     }
             
-    private func setupTableView() {
+    func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = searchController.searchBar
@@ -109,12 +109,13 @@ private extension TVShowsTableViewController {
         tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }
     
-    private func setupConstraints() {
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             searchController.searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             searchController.searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
+    
 }
 
 private extension TVShowsTableViewController {
@@ -166,6 +167,10 @@ extension TVShowsTableViewController {
         }
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        interactor.goToDetail()
     }
     
 }

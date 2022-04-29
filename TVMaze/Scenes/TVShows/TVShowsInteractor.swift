@@ -8,6 +8,7 @@
 import Foundation
 
 protocol TVShowsInteractoractable: AnyObject {
+    func goToDetail()
     func searchTVShows(query: String)
     func downloadImage(from url: String, with idx: IndexPath)
     func loadTVShows(to page: Int)
@@ -17,19 +18,26 @@ final class TVShowsInteractor {
     
     private let service: TVShowsServiceProtocol
     private let presenter: TVShowsPresentable
+    private let flowController: TVMazeFlowControllerType
     
     init(
         service: TVShowsServiceProtocol,
-        presenter: TVShowsPresentable
+        presenter: TVShowsPresentable,
+        flowController: TVMazeFlowControllerType
     ) {
         self.service = service
         self.presenter = presenter
+        self.flowController = flowController
     }
     
 }
 
 // MARK: - Internal Implementation
 extension TVShowsInteractor: TVShowsInteractoractable {
+    
+    func goToDetail() {
+        flowController.navigateToTVShowDetail()
+    }
     
     func searchTVShows(query: String) {
         presenter.presentLoading(true)

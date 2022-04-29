@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol TVMazeFlowControllerType: AnyObject {
+    func navigateToTVShowDetail()
+}
+
 public class TVMazeFlowController: FlowControllerType {
     
     var navigationController: UINavigationController
@@ -23,6 +27,17 @@ public class TVMazeFlowController: FlowControllerType {
     
     func start() {
         let viewController = TVShowsFactory.make(navigationController: navigationController)
+        push(viewController: viewController)
+    }
+    
+}
+
+
+// MARK: - TVMazeFlowControllerType Implementation
+extension TVMazeFlowController: TVMazeFlowControllerType {
+    
+    func navigateToTVShowDetail() {
+        let viewController = TVShowDetailViewController()
         push(viewController: viewController)
     }
     

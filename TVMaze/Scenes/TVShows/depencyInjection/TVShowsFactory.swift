@@ -14,7 +14,12 @@ struct TVShowsFactory {
     ) -> TVShowsTableViewController {
         let presenter = TVShowsPresenter()
         let service = TVShowsService(networkingDispatcher: NetworkingDispatcher())
-        let interactor = TVShowsInteractor(service: service, presenter: presenter)
+        let flowController = TVMazeFlowController(navigationController: navigationController)
+        let interactor = TVShowsInteractor(
+            service: service,
+            presenter: presenter,
+            flowController: flowController
+        )
         let viewController = TVShowsTableViewController(interactor: interactor)
         presenter.viewController = viewController
         return viewController
