@@ -8,6 +8,7 @@
 import Foundation
 
 protocol TVShowsInteractoractable: AnyObject {
+    func downloadImage(from url: String, with idx: Int)
     func loadTVShows()
 }
 
@@ -28,6 +29,18 @@ final class TVShowsInteractor {
 
 // MARK: - Internal Implementation
 extension TVShowsInteractor: TVShowsInteractoractable {
+    func downloadImage(from url: String, with idx: Int) {
+        service.fetchImage(url: url) { (result: Result<Data?, Error>) in
+            switch result {
+            case .success(let data):
+                guard let data = data else { return }
+                self.presenter.presentDownloadImage(data, on: idx)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     
     func loadTVShows() {
         presenter.presentLoading(true)

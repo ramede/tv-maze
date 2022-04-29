@@ -10,6 +10,7 @@ import os
 
 protocol NetworkingDispatcherType {
     func execute<T: Decodable>(sessionURL: URL, completion : @escaping (Result<[T], TVMazeAPIError>) -> Void)
+    func downloadImage(from sessionURL: String, completion: @escaping (Result<Data?, Error>) -> Void)
 }
 
 class NetworkingDispatcher: NetworkingDispatcherType {
@@ -48,5 +49,18 @@ class NetworkingDispatcher: NetworkingDispatcherType {
         }
         dataTask.resume()
     }
-    
+
+    func downloadImage(from sessionURL: String, completion: @escaping (Result<Data?, Error>) -> Void) {
+        guard let url = URL(string: sessionURL) else { return }
+        let session = URLSession(configuration: .default)
+        let dataTask = session.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completion(.failure(TVMazeAPIError.fetch))
+                return
+            }
+            completion(.success(data))
+        }
+        dataTask.resume()
+    }
+
 }

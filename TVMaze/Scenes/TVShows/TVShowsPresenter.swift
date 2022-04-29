@@ -11,6 +11,7 @@ protocol TVShowsPresentable: AnyObject {
     var viewController: TVShowsDisplayable? { get set }
     func presentTVShows(_ tvShows: [TVShow])
     func presentLoading(_ isLoading: Bool)
+    func presentDownloadImage(_ image: Data?, on idx: Int)
 }
 
 final class TVShowsPresenter {
@@ -27,5 +28,9 @@ extension TVShowsPresenter: TVShowsPresentable {
     func presentLoading(_ isLoading: Bool) {
         viewController?.displayLoading(isLoading)
     }
-
+    
+    func presentDownloadImage(_ image: Data?, on idx: Int) {
+        viewController?.displayDownloadedImage(image, on: idx)
+    }
+    
 }

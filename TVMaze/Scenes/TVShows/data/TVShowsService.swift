@@ -9,6 +9,7 @@ import Foundation
 
 protocol TVShowsServiceProtocol {
     func fetchTVShows(completion: @escaping (Result<[TVShow], TVMazeAPIError>) -> Void)
+    func fetchImage(url: String, completion: @escaping (Result<Data?, Error>) -> Void)
 }
 
 final class TVShowsService {
@@ -23,7 +24,6 @@ final class TVShowsService {
 extension TVShowsService: TVShowsServiceProtocol {
     
     func fetchTVShows(completion: @escaping (Result<[TVShow], TVMazeAPIError>) -> Void) {
-        
         let endpoint = TVMazeAPIEndpoint.getShows.baseUrl + TVMazeAPIEndpoint.getShows.path
         guard let url = URL(string: endpoint) else { return }
         
@@ -37,7 +37,20 @@ extension TVShowsService: TVShowsServiceProtocol {
                 }
             }
         }
-        
+    }
+    
+    func fetchImage(url: String, completion: @escaping (Result<Data?, Error>) -> Void) {
+        DispatchQueue.global().async {
+            self.networkingDispatcher.downloadImage(from: url) { (result: Result<Data?, Error>) in
+                switch result {
+                case .success(let data):
+                    guard let data = data else { return }
+                    completion(.success(data))
+                case .failure(let error):
+                    completion(.failure(TVMazeAPIError.generic(message: error.localizedDescription)))
+                }
+            }
+        }
     }
     
 }

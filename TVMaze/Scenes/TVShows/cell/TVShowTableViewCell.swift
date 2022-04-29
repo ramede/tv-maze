@@ -28,6 +28,17 @@ class TVShowTableViewCell: UITableViewCell {
         }
     }
     
+    var imageData: Data? = nil {
+        didSet {
+            guard let data = imageData,
+                  let image = UIImage(data: data) else {
+                self.thumbImage.image = UIImage(named: "ThumbImage")
+                return
+            }
+            thumbImage.image = image
+        }
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -100,7 +111,6 @@ private extension TVShowTableViewCell {
         thumbImage.translatesAutoresizingMaskIntoConstraints = false
         thumbImage.widthAnchor.constraint(equalToConstant: Constants.ThumbImage.width).isActive = true
         thumbImage.heightAnchor.constraint(equalToConstant: Constants.ThumbImage.height).isActive = true
-        thumbImage.image = UIImage(named: "ThumbImage")
         thumbImage.contentMode = .scaleAspectFit
     }
 

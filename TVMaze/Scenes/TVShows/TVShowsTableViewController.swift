@@ -10,6 +10,7 @@ import UIKit
 protocol TVShowsDisplayable: AnyObject {
     func displayLoading(_ isLoading: Bool)
     func displayTVShows(_ tvShows: [TVShow])
+    func displayDownloadedImage(_ image: Data?, on idx: Int)
 }
 
 class TVShowsTableViewController: UITableViewController {
@@ -151,8 +152,16 @@ extension TVShowsTableViewController {
             for: indexPath
         ) as? TVShowTableViewCell else { return UITableViewCell() }
 
+        cell.imageData = tvShows[indexPath.row].imageData
         cell.name = tvShows[indexPath.row].name
         cell.rating = "⭐ \(String(tvShows[indexPath.row].rating.average ?? 0))"
+        
+        if let imageUrl = tvShows[indexPath.row].image.medium {
+            if tvShows[indexPath.row].didFetchImage == nil ||
+               tvShows[indexPath.row].didFetchImage == false {
+                interactor.downloadImage(from: imageUrl, with: indexPath.row)
+            }
+        }
         
         return cell
     }
@@ -178,4 +187,15 @@ extension TVShowsTableViewController: TVShowsDisplayable {
             self.tableView.refreshControl?.endRefreshing()
         }
     }
+    
+    func displayDownloadedImage(_ image: Data?, on idx: Int) {
+        if idx >= tvShows.startIndex && idx < tvShows.endIndex {
+            tvShows[idx].imageData = image
+            tvShows[idx].didFetchImage = true
+            DispatchQueue.main.async() {
+                self.tableView.reloadData()
+            }
+        }
+    }
+
 }
