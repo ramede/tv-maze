@@ -9,7 +9,7 @@ import Foundation
 import os
 
 protocol NetworkingDispatcherType {
-    func execute<T: Decodable>(sessionURL: URL, completion : @escaping (Result<[T], Error>) -> Void)
+    func execute<T: Decodable>(sessionURL: URL, completion : @escaping (Result<[T], TVMazeAPIError>) -> Void)
 }
 
 class NetworkingDispatcher: NetworkingDispatcherType {
@@ -17,7 +17,7 @@ class NetworkingDispatcher: NetworkingDispatcherType {
     init() {
     }
     
-    func execute<T: Decodable>(sessionURL: URL, completion : @escaping (Result<[T], Error>) -> Void) {
+    func execute<T: Decodable>(sessionURL: URL, completion : @escaping (Result<[T], TVMazeAPIError>) -> Void) {
         let session = URLSession(configuration: .default)
         let dataTask = session.dataTask(with: sessionURL) { (data, response, error) in
             
@@ -33,13 +33,13 @@ class NetworkingDispatcher: NetworkingDispatcherType {
                         completion(.success(decodedData))
                     } catch {
                         os_log("Unable to decode data. Body: %{public}@", String(data: safeData, encoding: .utf8) ?? "")
-                        completion(.failure(TVMazeError.parser))
+                        completion(.failure(TVMazeAPIError.parser))
                     }
                 } else {
-                    completion(.failure(TVMazeError.fetch))
+                    completion(.failure(TVMazeAPIError.fetch))
                 }
             } else {
-                completion(.failure(TVMazeError.generic(
+                completion(.failure(TVMazeAPIError.generic(
                                         message: "Error in URLSessionDataTask: \(String(describing: error))"
                         )
                     )
