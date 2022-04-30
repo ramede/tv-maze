@@ -10,14 +10,10 @@ import UIKit
 
 struct TVShowsFactory {
     static func make(
-        navigationController: UINavigationController
+        flowController: TVMazeFlowControllerType
     ) -> TVShowsTableViewController {
         let presenter = TVShowsPresenter()
-        let service = TVShowsService(networkingDispatcher: NetworkingDispatcher())
-        
-        // TODO: - Remove flow controller
-        let flowController = TVMazeFlowController(navigationController: navigationController)
-        
+        let service = TVShowsService(networkingDispatcher: NetworkingDispatcher())        
         let interactor = TVShowsInteractor(
             service: service,
             presenter: presenter,

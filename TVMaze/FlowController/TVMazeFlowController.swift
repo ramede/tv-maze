@@ -26,7 +26,7 @@ public class TVMazeFlowController: FlowControllerType {
     }
     
     func start() {
-        let viewController = TVShowsFactory.make(navigationController: navigationController)
+        let viewController = TVShowsFactory.make(flowController: self)
         push(viewController: viewController)
     }
     
