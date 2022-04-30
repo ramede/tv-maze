@@ -90,7 +90,7 @@ private extension TVShowsTableViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.setStatusBar(backgroundColor: .systemGray6)
-        navigationItem.title = "TVMaze | Shows"
+        navigationItem.title = "Shows"
     }
             
     func setupTableView() {

@@ -24,8 +24,8 @@ class TVShowDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .purple
-        title = "Detail"
+        view.backgroundColor = .systemGray6
+        title = "TV Show"
     }
     
     override func viewWillAppear(_ animated: Bool) {
