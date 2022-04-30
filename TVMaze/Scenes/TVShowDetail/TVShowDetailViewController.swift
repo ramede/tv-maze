@@ -8,7 +8,9 @@
 import UIKit
 
 protocol TVShowDetailDisplayable: AnyObject {
+    func displayEpisodes(_ episodes: [Episode])
     func displayTVShowDetail(_ tvShow: TVShow)
+    func displayLoading(_ isLoading: Bool)
 }
 
 class TVShowDetailViewController: UIViewController {
@@ -42,6 +44,7 @@ class TVShowDetailViewController: UIViewController {
         view.backgroundColor = .systemGray6
         title = "TV Show"
         interactor.bindTVShow(tvShow)
+        interactor.loadEpisodes(showId: tvShow.id)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,7 +62,20 @@ private extension TVShowDetailViewController {
 
 // MARK: - Displayble Implementations
 extension TVShowDetailViewController: TVShowDetailDisplayable {
+    
+    func displayEpisodes(_ episodes: [Episode]) {
+        contentView.bindEpisodes(episodes)
+    }
+    
     func displayTVShowDetail(_ tvShow: TVShow) {
         contentView.bindTVShowData(tvShow)
     }
+    
+    func displayLoading(_ isLoading: Bool) {
+        DispatchQueue.main.async {
+            self.contentView.isLoading = isLoading
+        }
+
+    }
+    
 }

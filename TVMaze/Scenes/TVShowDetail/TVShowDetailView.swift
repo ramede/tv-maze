@@ -7,9 +7,12 @@
 
 import UIKit
 
+struct Section {
+    let season: String
+    let episodes: [Episode]?
+}
+
 final class TVShowDetailView: UIView {
-    
-    var episodes = [ ["Moscow", "Saint Petersburg", "Novosibirsk", "Novosibirsk", "Nizhny Novgorod", "Samara", "Omsk" ], ["Kiyv", "Odessa", "Donetsk", "Harkiv", "Lviv", "Uzhgorod", "Zhytomyr", "Luhansk", "Mikolayv", "Kherson"], ["Berlin", "Hamburg", "Munich", "Cologne", "Frankfurt", "Stuttgart", "Düsseldorf", "Dortmund", "Essen", "Bremen"]]
     
     // MARK: - Private Properties
     
@@ -22,20 +25,28 @@ final class TVShowDetailView: UIView {
     private var scheduleLabel = UILabel()
     private var summaryLabel = UILabel()
     private var episodesTableView = UITableView()
+    private let activityIndicator = UIActivityIndicatorView(style: .medium)
+    private var episodesSections: [Section] = []
     
     private var tableViewHeightConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
+    // MARK: - Internal Properties
+        
+    var isLoading: Bool = false {
+        didSet {
+            DispatchQueue.main.async {
+                if self.isLoading {
+                    self.activityIndicator.startAnimating()
+                    return
+                }
+                self.activityIndicator.stopAnimating()
+            }
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setup()
-
-        DispatchQueue.main.async {
-            self.episodesTableView.reloadData()
-            self.tableViewHeightConstraint.constant = self.episodesTableView.contentSize.height
-            self.layoutIfNeeded()
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -127,41 +138,25 @@ extension TVShowDetailView {
 
         summaryLabel.attributedText = loadSummaryAttrString(summary: tvShow.summary ?? "")
     }
-
-    func loadScheduleAttrString(days: String, time: String) -> NSAttributedString {
-        let myString = "Schedule: \(days) at \(time)"
-        var myMutableString = NSMutableAttributedString()
-
-        myMutableString = NSMutableAttributedString(string: myString, attributes: [
-            NSAttributedString.Key.font: Font.ScheduleLabel.regular,
-            NSAttributedString.Key.foregroundColor: UIColor.black
-        ])
-        myMutableString.addAttribute(NSAttributedString.Key.font, value: Font.ScheduleLabel.bold, range: NSRange(location:0,length:9))
-
-        return myMutableString
-    }
     
-    func loadImage(_ imageData: Data?) -> UIImage? {
-        guard let data = imageData,
-              let image = UIImage(data: data) else {
-            return UIImage(named: "ThumbImage")
-        }
-        return image
-    }
-    
-    func loadSummaryAttrString(summary: String) -> NSAttributedString? {
-        let html = "<html><head><style type=\"text/css\"> body { font-family: -apple-system; font-size: 14px} </style></head><body>" + summary + "</body></html>"
-        let data = html.data(using: .utf8)!
-        let attributedString = try? NSAttributedString(
-            data: data,
-            options: [
-                .documentType: NSAttributedString.DocumentType.html,
-                .characterEncoding: String.Encoding.utf8.rawValue
-            ],
-            documentAttributes: nil)
+    func bindEpisodes(_ episodes: [Episode]) {
+        var mutableEpisodes = episodes
+        mutableEpisodes.sort { $0.season < $1.season }
         
-        return attributedString
+        let dictionary = Dictionary(grouping: mutableEpisodes, by: { (element: Episode) in
+            return element.season
+        })
+        
+        let keys = dictionary.keys.sorted()
+        episodesSections = keys.map{ Section(season: String($0), episodes: dictionary[$0]) }
+
+        DispatchQueue.main.async {
+            self.episodesTableView.reloadData()
+            self.tableViewHeightConstraint.constant = self.episodesTableView.contentSize.height
+            self.layoutIfNeeded()
+        }
     }
+    
 }
 
 // MARK: - Private Implemantation
@@ -170,6 +165,7 @@ private extension TVShowDetailView {
     func setup() {
         setupContentScrollView()
         setupContentView()
+        setupActivityIndicator()
         setupNameLabel()
         setupThumbImage()
         setupRatingLabel()
@@ -189,6 +185,13 @@ private extension TVShowDetailView {
     func setupContentView() {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.backgroundColor = .clear
+    }
+    
+    func setupActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.color = .systemBlue
+        activityIndicator.startAnimating()
+        activityIndicator.center = center
     }
 
     func setupNameLabel() {
@@ -262,6 +265,7 @@ private extension TVShowDetailView {
     func setupHierarchy() {
         addSubview(contentScrollView)
         contentScrollView.addSubview(contentView)
+        addSubview(activityIndicator)
         contentView.addSubview(nameLabel)
         contentView.addSubview(thumbImage)
         contentView.addSubview(ratingLabel)
@@ -278,39 +282,77 @@ private extension TVShowDetailView {
             contentScrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
             contentScrollView.leftAnchor.constraint(equalTo: leftAnchor),
             
+            activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
             contentView.topAnchor.constraint(equalTo: contentScrollView.topAnchor),
             contentView.rightAnchor.constraint(equalTo: contentScrollView.rightAnchor),
             contentView.bottomAnchor.constraint(equalTo: contentScrollView.bottomAnchor),
             contentView.leftAnchor.constraint(equalTo: contentScrollView.leftAnchor),
             contentView.widthAnchor.constraint(equalTo: contentScrollView.widthAnchor),
-            
+
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.Name.top),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.Name.leading),
-            
+
             thumbImage.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: Constants.ThumbImage.top),
             thumbImage.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            
+
             ratingLabel.topAnchor.constraint(equalTo: thumbImage.bottomAnchor, constant: Constants.RatingLabel.top),
             ratingLabel.trailingAnchor.constraint(equalTo: thumbImage.trailingAnchor),
             ratingLabel.leadingAnchor.constraint(equalTo: thumbImage.leadingAnchor),
-            
+
             genresLabel.topAnchor.constraint(equalTo: thumbImage.topAnchor),
             genresLabel.leadingAnchor.constraint(equalTo: thumbImage.trailingAnchor, constant: Constants.GenresLabel.leading),
             genresLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.GenresLabel.trailing),
-            
+
             scheduleLabel.topAnchor.constraint(equalTo: genresLabel.bottomAnchor, constant: Constants.ScheduleLabel.top),
             scheduleLabel.leadingAnchor.constraint(equalTo: genresLabel.leadingAnchor),
             scheduleLabel.trailingAnchor.constraint(equalTo: genresLabel.trailingAnchor),
-            
+
             summaryLabel.topAnchor.constraint(equalTo: scheduleLabel.bottomAnchor, constant: Constants.SummaryLabel.top),
             summaryLabel.leadingAnchor.constraint(equalTo: genresLabel.leadingAnchor),
             summaryLabel.trailingAnchor.constraint(equalTo: genresLabel.trailingAnchor),
-            
+
             episodesTableView.topAnchor.constraint(equalTo: summaryLabel.bottomAnchor, constant: Constants.EpisodesTableView.top),
             episodesTableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.EpisodesTableView.trailing),
             episodesTableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
             episodesTableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.EpisodesTableView.leading)
         ])
+    }
+    
+    func loadScheduleAttrString(days: String, time: String) -> NSAttributedString {
+        let myString = "Schedule: \(days) at \(time)"
+        var myMutableString = NSMutableAttributedString()
+
+        myMutableString = NSMutableAttributedString(string: myString, attributes: [
+            NSAttributedString.Key.font: Font.ScheduleLabel.regular,
+            NSAttributedString.Key.foregroundColor: UIColor.black
+        ])
+        myMutableString.addAttribute(NSAttributedString.Key.font, value: Font.ScheduleLabel.bold, range: NSRange(location:0,length:9))
+
+        return myMutableString
+    }
+    
+    func loadImage(_ imageData: Data?) -> UIImage? {
+        guard let data = imageData,
+              let image = UIImage(data: data) else {
+            return UIImage(named: "ThumbImage")
+        }
+        return image
+    }
+    
+    func loadSummaryAttrString(summary: String) -> NSAttributedString? {
+        let html = "<html><head><style type=\"text/css\"> body { font-family: -apple-system; font-size: 14px} </style></head><body>" + summary + "</body></html>"
+        let data = html.data(using: .utf8)!
+        let attributedString = try? NSAttributedString(
+            data: data,
+            options: [
+                .documentType: NSAttributedString.DocumentType.html,
+                .characterEncoding: String.Encoding.utf8.rawValue
+            ],
+            documentAttributes: nil)
+        
+        return attributedString
     }
     
 }
@@ -319,11 +361,11 @@ private extension TVShowDetailView {
 extension TVShowDetailView: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return episodes.count
+        return episodesSections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return episodes[section].count
+        return episodesSections[section].episodes?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -331,6 +373,9 @@ extension TVShowDetailView: UITableViewDataSource {
             withIdentifier: "episodeCell",
             for: indexPath
         ) as? EpisodeTableViewCell else { return UITableViewCell() }
+        
+        cell.number = String(episodesSections[indexPath.section].episodes?[indexPath.row].number ?? 0)
+        cell.name = episodesSections[indexPath.section].episodes?[indexPath.row].name ?? ""
         
         return cell
     }
@@ -342,6 +387,8 @@ extension TVShowDetailView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "episodeSectionHeader") as! EpisodeTableViewHeaderView
+        
+        view.title = "Season \(String(episodesSections[section].episodes?[0].season ?? 0))"
         
        return view
     }

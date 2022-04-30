@@ -14,7 +14,8 @@ struct TVShowDetailFactory {
         flowController: TVMazeFlowControllerType
     ) -> TVShowDetailViewController {
         let presenter = TVShowDetailPresenter()
-        let interactor = TVShowDetailIntactor(presenter: presenter)
+        let service = TVShowDetailService(networkingDispatcher: NetworkingDispatcher())
+        let interactor = TVShowDetailIntactor(presenter: presenter, service: service)
         let viewController = TVShowDetailViewController(tvShow: tvShow, interactor: interactor)
         presenter.viewController = viewController
         return viewController

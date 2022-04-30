@@ -13,6 +13,19 @@ class EpisodeTableViewCell: UITableViewCell {
     private var numberLabel = UILabel()
     private var nameLabel = UILabel()
     
+    // MARK: - Internal Properties
+    var number: String = "" {
+        didSet {
+            numberLabel.text = number
+        }
+    }
+
+    var name: String = "" {
+        didSet {
+            nameLabel.text = name
+        }
+    }
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

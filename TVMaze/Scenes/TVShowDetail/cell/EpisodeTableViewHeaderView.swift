@@ -14,6 +14,13 @@ class EpisodeTableViewHeaderView: UITableViewHeaderFooterView {
     private var numberLabel = UILabel()
     private var nameLabel = UILabel()
 
+    // MARK: - Internal Properties
+    var title: String = "" {
+        didSet {
+            titleLabel.text = title
+        }
+    }
+
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setup()
