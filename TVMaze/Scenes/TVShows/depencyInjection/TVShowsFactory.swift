@@ -14,7 +14,10 @@ struct TVShowsFactory {
     ) -> TVShowsTableViewController {
         let presenter = TVShowsPresenter()
         let service = TVShowsService(networkingDispatcher: NetworkingDispatcher())
+        
+        // TODO: - Remove flow controller
         let flowController = TVMazeFlowController(navigationController: navigationController)
+        
         let interactor = TVShowsInteractor(
             service: service,
             presenter: presenter,

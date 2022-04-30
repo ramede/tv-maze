@@ -7,10 +7,25 @@
 
 import UIKit
 
+protocol TVShowDetailDisplayable: AnyObject {
+    func displayTVShowDetail(_ tvShow: TVShow)
+}
+
 class TVShowDetailViewController: UIViewController {
-    private lazy var contentView = TVShowDetailView()
     
-    init() {
+    
+    // MARK: - Private Properties
+    private lazy var contentView = TVShowDetailView()
+    private let tvShow: TVShow
+    private let interactor: TVShowDetailInteractable
+
+    
+    init(
+        tvShow: TVShow,
+        interactor: TVShowDetailInteractable
+    ) {
+        self.tvShow = tvShow
+        self.interactor = interactor
         super.init(nibName: nil, bundle: .main)
     }
     
@@ -26,6 +41,7 @@ class TVShowDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemGray6
         title = "TV Show"
+        interactor.bindTVShow(tvShow)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,4 +54,12 @@ class TVShowDetailViewController: UIViewController {
 // MARK: - Private Implementations
 private extension TVShowDetailViewController {
     
+}
+
+
+// MARK: - Displayble Implementations
+extension TVShowDetailViewController: TVShowDetailDisplayable {
+    func displayTVShowDetail(_ tvShow: TVShow) {
+        contentView.bindTVShowData(tvShow)
+    }
 }

@@ -170,7 +170,8 @@ extension TVShowsTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        interactor.goToDetail()
+        let tvShow: TVShow = tvShows[indexPath.row]
+        interactor.goToDetail(with: tvShow)
     }
     
 }

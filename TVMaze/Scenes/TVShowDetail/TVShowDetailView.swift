@@ -111,6 +111,59 @@ private extension TVShowDetailView {
     
 }
 
+// MARK: - Internal Implementation
+extension TVShowDetailView {
+    
+    func bindTVShowData(_ tvShow: TVShow) {
+        nameLabel.text = tvShow.name
+        thumbImage.image = loadImage(tvShow.imageData)
+        ratingLabel.text = "⭐ \(tvShow.rating?.average ?? 0)"
+        genresLabel.text = tvShow.genres?.joined(separator: " | ")
+        
+        if let days = tvShow.schedule?.days?.joined(separator: " | "),
+           let time = tvShow.schedule?.time {
+            scheduleLabel.attributedText = loadScheduleAttrString(days: days, time: time)
+        }
+
+        summaryLabel.attributedText = loadSummaryAttrString(summary: tvShow.summary ?? "")
+    }
+
+    func loadScheduleAttrString(days: String, time: String) -> NSAttributedString {
+        let myString = "Schedule: \(days) at \(time)"
+        var myMutableString = NSMutableAttributedString()
+
+        myMutableString = NSMutableAttributedString(string: myString, attributes: [
+            NSAttributedString.Key.font: Font.ScheduleLabel.regular,
+            NSAttributedString.Key.foregroundColor: UIColor.black
+        ])
+        myMutableString.addAttribute(NSAttributedString.Key.font, value: Font.ScheduleLabel.bold, range: NSRange(location:0,length:9))
+
+        return myMutableString
+    }
+    
+    func loadImage(_ imageData: Data?) -> UIImage? {
+        guard let data = imageData,
+              let image = UIImage(data: data) else {
+            return UIImage(named: "ThumbImage")
+        }
+        return image
+    }
+    
+    func loadSummaryAttrString(summary: String) -> NSAttributedString? {
+        let html = "<html><head><style type=\"text/css\"> body { font-family: -apple-system; font-size: 14px} </style></head><body>" + summary + "</body></html>"
+        let data = html.data(using: .utf8)!
+        let attributedString = try? NSAttributedString(
+            data: data,
+            options: [
+                .documentType: NSAttributedString.DocumentType.html,
+                .characterEncoding: String.Encoding.utf8.rawValue
+            ],
+            documentAttributes: nil)
+        
+        return attributedString
+    }
+}
+
 // MARK: - Private Implemantation
 private extension TVShowDetailView {
     
@@ -153,8 +206,6 @@ private extension TVShowDetailView {
         ratingLabel.numberOfLines = 1
         ratingLabel.textColor = .black
         ratingLabel.textAlignment = .center
-
-        ratingLabel.text = "⭐ 8.5"
     }
 
     func setupThumbImage() {
@@ -179,26 +230,12 @@ private extension TVShowDetailView {
     func setupScheduleLabel() {
         scheduleLabel.translatesAutoresizingMaskIntoConstraints = false
         scheduleLabel.numberOfLines = 0
-        
-        let myString = "Schedule: Mondays at 21:00 (60 min)"
-        var myMutableString = NSMutableAttributedString()
-
-        myMutableString = NSMutableAttributedString(string: myString, attributes: [
-            NSAttributedString.Key.font: Font.ScheduleLabel.regular,
-            NSAttributedString.Key.foregroundColor: UIColor.black
-        ])
-        myMutableString.addAttribute(NSAttributedString.Key.font, value: Font.ScheduleLabel.bold, range: NSRange(location:0,length:9))
-
-        scheduleLabel.attributedText = myMutableString
     }
 
     func setupSummaryLabel() {
         summaryLabel.translatesAutoresizingMaskIntoConstraints = false
-        summaryLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: Font.SummaryLabel.regular)
         summaryLabel.numberOfLines = 0
         summaryLabel.textColor = .black
-        
-        summaryLabel.text = "Follow Better Call Saul is the prequel to the award-winning series Breaking Bad, set six years before Saul Goodman became Walter White's lawyer. When we meet him, the man who will become Saul Goodman is known as Jimmy McGill, a small-time lawyer searching for his destiny, and, more immediately, hustling to make ends meet. Working alongside, and often against, Jimmy is fixer Mike Ehrmantraut, a beloved character introduced in Breaking Bad. The series will track Jimmy's transformation into Saul Goodman, the man who puts criminal in criminal lawyer.Follow Better Call Saul is the prequel to the award-winning series Breaking Bad, set six years before Saul Goodman became Walter White's lawyer. When we meet him, the man who will become Saul Goodman is known as Jimmy McGill, a small-time lawyer searching for his destiny, and, more immediately, hustling to make ends meet. Working alongside, and often against, Jimmy is fixer Mike Ehrmantraut, a beloved character introduced in Breaking Bad. The series will track Jimmy's transformation into Saul Goodman, the man who puts criminal in criminal lawyer.Follow Better Call Saul is the prequel to the award-winning series Breaking Bad, set six years before Saul Goodman became Walter White's lawyer. When we meet him, the man who will become Saul Goodman is known as Jimmy McGill, a small-time lawyer searching for his destiny, and, more immediately, hustling to make ends meet. Working alongside, and often against, Jimmy is fixer Mike Ehrmantraut, a beloved character introduced in Breaking Bad. The series will track Jimmy's transformation into Saul Goodman, the man who puts criminal in criminal lawyer.Follow Better Call Saul is the prequel to the award-winning series Breaking Bad, set six years before Saul Goodman became Walter White's lawyer. When we meet him, the man who will become Saul Goodman is known as Jimmy McGill, a small-time lawyer searching for his destiny, and, more immediately, hustling to make ends meet. Working alongside, and often against, Jimmy is fixer Mike Ehrmantraut, a beloved character introduced in Breaking Bad. The series will track Jimmy's transformation into Saul Goodman, the man who puts criminal in criminal lawyer."
     }
     
     func setupTableView() {

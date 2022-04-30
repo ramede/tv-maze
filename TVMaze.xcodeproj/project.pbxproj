@@ -20,6 +20,9 @@
 		1B1C57C6281C563B0073A89E /* TVShowDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57C5281C563B0073A89E /* TVShowDetailView.swift */; };
 		1B1C57C8281D4ED30073A89E /* EpisodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1C57C7281D4ED30073A89E /* EpisodeTableViewCell.swift */; };
 		1B43FA19281D733B00DAE7A4 /* EpisodeTableViewHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43FA18281D733A00DAE7A4 /* EpisodeTableViewHeaderView.swift */; };
+		1B43FA1B281D909A00DAE7A4 /* TVShowDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43FA1A281D909A00DAE7A4 /* TVShowDetailInteractor.swift */; };
+		1B43FA1D281D91FD00DAE7A4 /* TVShowDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43FA1C281D91FD00DAE7A4 /* TVShowDetailPresenter.swift */; };
+		1B43FA1F281D963500DAE7A4 /* TVShowDetailFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43FA1E281D963500DAE7A4 /* TVShowDetailFactory.swift */; };
 		1B6721072819735F0030B55E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6721062819735F0030B55E /* AppDelegate.swift */; };
 		1B6721092819735F0030B55E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6721082819735F0030B55E /* SceneDelegate.swift */; };
 		1B67210B2819735F0030B55E /* TVShowsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B67210A2819735F0030B55E /* TVShowsTableViewController.swift */; };
@@ -65,6 +68,9 @@
 		1B1C57C5281C563B0073A89E /* TVShowDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowDetailView.swift; sourceTree = "<group>"; };
 		1B1C57C7281D4ED30073A89E /* EpisodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeTableViewCell.swift; sourceTree = "<group>"; };
 		1B43FA18281D733A00DAE7A4 /* EpisodeTableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeTableViewHeaderView.swift; sourceTree = "<group>"; };
+		1B43FA1A281D909A00DAE7A4 /* TVShowDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowDetailInteractor.swift; sourceTree = "<group>"; };
+		1B43FA1C281D91FD00DAE7A4 /* TVShowDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowDetailPresenter.swift; sourceTree = "<group>"; };
+		1B43FA1E281D963500DAE7A4 /* TVShowDetailFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowDetailFactory.swift; sourceTree = "<group>"; };
 		1B6721032819735F0030B55E /* TVMaze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TVMaze.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B6721062819735F0030B55E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B6721082819735F0030B55E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -187,6 +193,9 @@
 				1B1C57C5281C563B0073A89E /* TVShowDetailView.swift */,
 				1B1C57C7281D4ED30073A89E /* EpisodeTableViewCell.swift */,
 				1B43FA18281D733A00DAE7A4 /* EpisodeTableViewHeaderView.swift */,
+				1B43FA1A281D909A00DAE7A4 /* TVShowDetailInteractor.swift */,
+				1B43FA1C281D91FD00DAE7A4 /* TVShowDetailPresenter.swift */,
+				1B43FA1E281D963500DAE7A4 /* TVShowDetailFactory.swift */,
 			);
 			path = TVShowDetail;
 			sourceTree = "<group>";
@@ -404,6 +413,9 @@
 				1B1C57B9281B4C7F0073A89E /* TVShow.swift in Sources */,
 				1B1C57BB281B6EF00073A89E /* TVShowsPresenter.swift in Sources */,
 				1B67210B2819735F0030B55E /* TVShowsTableViewController.swift in Sources */,
+				1B43FA1F281D963500DAE7A4 /* TVShowDetailFactory.swift in Sources */,
+				1B43FA1B281D909A00DAE7A4 /* TVShowDetailInteractor.swift in Sources */,
+				1B43FA1D281D91FD00DAE7A4 /* TVShowDetailPresenter.swift in Sources */,
 				1B1C57A5281ACF510073A89E /* TVShowTableViewCell.swift in Sources */,
 				1B6721372819D7D80030B55E /* FlowControllerType.swift in Sources */,
 				1B6721392819D86B0030B55E /* TVMazeFlowController.swift in Sources */,
