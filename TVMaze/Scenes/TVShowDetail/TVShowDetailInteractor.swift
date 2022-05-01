@@ -8,6 +8,7 @@
 import Foundation
 
 protocol TVShowDetailInteractable: AnyObject {
+    func goToEpisode(_ episode: Episode)
     func bindTVShow(_ tvShow: TVShow)
     func loadEpisodes(showId: Int)
 }
@@ -17,18 +18,25 @@ final class TVShowDetailIntactor {
     // MARK: - Private Properties
     private let presenter: TVShowDetailPresentable
     private let service: TVShowDetailServiceProtocol
+    private let flowController: TVMazeFlowControllerType
     
     init(
         presenter: TVShowDetailPresentable,
-        service: TVShowDetailServiceProtocol
+        service: TVShowDetailServiceProtocol,
+        flowController: TVMazeFlowControllerType
     ) {
         self.presenter = presenter
         self.service = service
+        self.flowController = flowController
     }
 }
 
 // MARK: - Internal Implementation
 extension TVShowDetailIntactor: TVShowDetailInteractable {
+    
+    func goToEpisode(_ episode: Episode) {
+        flowController.navigateToEpisode(episode)
+    }
 
     func bindTVShow(_ tvShow: TVShow) {
         presenter.presentTVShowDetail(tvShow)

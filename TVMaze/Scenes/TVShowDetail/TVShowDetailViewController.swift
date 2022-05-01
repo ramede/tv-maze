@@ -29,6 +29,7 @@ class TVShowDetailViewController: UIViewController {
         self.tvShow = tvShow
         self.interactor = interactor
         super.init(nibName: nil, bundle: .main)
+        self.contentView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -76,6 +77,15 @@ extension TVShowDetailViewController: TVShowDetailDisplayable {
             self.contentView.isLoading = isLoading
         }
 
+    }
+    
+}
+
+// MARK: - TVShowDetailViewDelegate Implementation
+extension TVShowDetailViewController: TVShowDetailViewDelegate {
+    
+    func didTapOnEpisode(_ episode: Episode) {
+        interactor.goToEpisode(episode)
     }
     
 }

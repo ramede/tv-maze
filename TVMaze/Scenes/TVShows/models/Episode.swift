@@ -13,4 +13,5 @@ struct Episode: Codable {
     let season: Int
     let number: Int
     let summary: String
+    let image: Image?
 }

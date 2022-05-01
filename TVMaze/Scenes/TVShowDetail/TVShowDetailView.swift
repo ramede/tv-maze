@@ -7,9 +7,9 @@
 
 import UIKit
 
-struct Section {
-    let season: String
-    let episodes: [Episode]?
+
+protocol TVShowDetailViewDelegate: AnyObject {
+    func didTapOnEpisode(_ episode: Episode)
 }
 
 final class TVShowDetailView: UIView {
@@ -26,12 +26,14 @@ final class TVShowDetailView: UIView {
     private var summaryLabel = UILabel()
     private var episodesTableView = UITableView()
     private let activityIndicator = UIActivityIndicatorView(style: .medium)
-    private var episodesSections: [Section] = []
+    private var episodesSections: [EpisodesSection] = []
     
     private var tableViewHeightConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
     // MARK: - Internal Properties
-        
+    
+    weak var delegate: TVShowDetailViewDelegate?
+    
     var isLoading: Bool = false {
         didSet {
             DispatchQueue.main.async {
@@ -148,7 +150,7 @@ extension TVShowDetailView {
         })
         
         let keys = dictionary.keys.sorted()
-        episodesSections = keys.map{ Section(season: String($0), episodes: dictionary[$0]) }
+        episodesSections = keys.map{ EpisodesSection(season: String($0), episodes: dictionary[$0]) }
 
         DispatchQueue.main.async {
             self.episodesTableView.reloadData()
@@ -199,8 +201,6 @@ private extension TVShowDetailView {
         nameLabel.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: Font.Name.bold)
         nameLabel.numberOfLines = 0
         nameLabel.textColor = .black
-        
-        nameLabel.text = "Once upon a time in Hollywood"
     }
 
     func setupRatingLabel() {
@@ -216,8 +216,6 @@ private extension TVShowDetailView {
         thumbImage.widthAnchor.constraint(equalToConstant: Constants.ThumbImage.width).isActive = true
         thumbImage.heightAnchor.constraint(equalToConstant: Constants.ThumbImage.height).isActive = true
         thumbImage.contentMode = .scaleAspectFit
-        
-        thumbImage.image = UIImage(named: "ThumbImage")
     }
     
     func setupGenresLabel() {
@@ -225,9 +223,6 @@ private extension TVShowDetailView {
         genresLabel.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: Font.GenresLabel.bold)
         genresLabel.numberOfLines = 0
         genresLabel.textColor = .black
-        
-        
-        genresLabel.text = "Drama | Crime | Legal"
     }
     
     func setupScheduleLabel() {
@@ -376,6 +371,7 @@ extension TVShowDetailView: UITableViewDataSource {
         
         cell.number = String(episodesSections[indexPath.section].episodes?[indexPath.row].number ?? 0)
         cell.name = episodesSections[indexPath.section].episodes?[indexPath.row].name ?? ""
+        cell.selectionStyle = .none
         
         return cell
     }
@@ -391,6 +387,11 @@ extension TVShowDetailView: UITableViewDelegate {
         view.title = "Season \(String(episodesSections[section].episodes?[0].season ?? 0))"
         
        return view
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let episode = episodesSections[indexPath.section].episodes?[indexPath.row] else { return }
+        delegate?.didTapOnEpisode(episode)
     }
 
 }

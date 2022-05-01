@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct Image: Codable {
-    let medium: String?
-}
-
 struct Rating: Codable {
     let average: Double?
 }

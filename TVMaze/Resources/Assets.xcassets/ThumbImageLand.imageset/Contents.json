@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "no-img-landscape-text.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

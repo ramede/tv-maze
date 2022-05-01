@@ -9,6 +9,7 @@ import UIKit
 
 protocol TVMazeFlowControllerType: AnyObject {
     func navigateToTVShowDetail(_ tvShow: TVShow)
+    func navigateToEpisode(_ episode: Episode)
 }
 
 public class TVMazeFlowController: FlowControllerType {
@@ -41,4 +42,8 @@ extension TVMazeFlowController: TVMazeFlowControllerType {
         push(viewController: viewController)
     }
     
+    func navigateToEpisode(_ episode: Episode) {
+        let viewController = EpisodeFactory.make(episode: episode)
+        present(viewController: viewController)
+    }
 }
